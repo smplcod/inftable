@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/inftable/static/css/main.4a00ce3e.css",
+    "main.js": "/inftable/static/js/main.6214c66c.js",
+    "index.html": "/inftable/index.html",
+    "main.4a00ce3e.css.map": "/inftable/static/css/main.4a00ce3e.css.map",
+    "main.6214c66c.js.map": "/inftable/static/js/main.6214c66c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4a00ce3e.css",
+    "static/js/main.6214c66c.js"
+  ]
+}
