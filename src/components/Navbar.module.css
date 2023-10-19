@@ -5,14 +5,14 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 15px;
+	/* padding: 0 15px; */
 }
 .left,
 .center,
 .right {
 	width: 30%;
 	text-align: center;
-	/* background-color: #ddd; */
+	background-color: #ddd;
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -23,4 +23,15 @@
 }
 .right {
 	text-align: right;
+}
+
+.link{
+	font-size: 16px;
+  text-decoration: none;
+	padding-right: 10px;
+}
+
+.link:hover {
+  text-decoration:underline;
+	background-color: black;
 }
