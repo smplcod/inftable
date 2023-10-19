@@ -10,24 +10,16 @@ import {
 import { auth } from "../helpers/FirebaseConfig";
 
 function Navbar() {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  // const [registerEmail, setRegisterEmail] = useState("");
+  // const [registerPassword, setRegisterPassword] = useState("");
+  // const [loginEmail, setLoginEmail] = useState("");
+  // const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
   }, []);
-
-  // useEffect(() => {
-  // const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-  // setUser(currentUser);
-  // });
-  // Очистка подписки
-  // return () => unsubscribe();
-  // }, []);
 
   return (
     <div className={styles.navbar}>
