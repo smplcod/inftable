@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar";
 
 import MainPage from "./pages/MainPage";
 import AuthPage from "./pages/AuthPage";
+import DesktopPage from "./pages/DesktopPage";
+import MvpPage from "./pages/MvpPage";
 
 function Router() {
   return (
@@ -13,6 +15,8 @@ function Router() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/desktop" element={<DesktopPage />} />
+        <Route path="/mvp" element={<MvpPage />} />
       </Routes>
     </BrowserRouter>
   );
