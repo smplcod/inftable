@@ -1,49 +1,35 @@
 import React from "react";
+import styles from "./InfTable.module.css"; // Импортируем стили
 
-const InfTable = ({ rows = 30, cols = 4 }) => {
-  // Рассчитываем минимальную ширину для внутреннего div
-  const minWidth = 300 * cols; // 300px - ширина каждой ячейки
+const InfTable = ({ rows = 30, cols = 5 }) => {
+  const colNames = []; // A to ZZ
+  for (let i = 65; i <= 90; i++) {
+    colNames.push(String.fromCharCode(i));
+  }
+  for (let i = 65; i <= 90; i++) {
+    for (let j = 65; j <= 90; j++) {
+      colNames.push(String.fromCharCode(i) + String.fromCharCode(j));
+    }
+  }
+
+  const limitedColNames = colNames.slice(0, cols);
 
   return (
-    <div
-      style={{
-        overflow: "auto",
-        width: "50%",
-        height: "50%",
-        position: "relative",
-      }}
-    >
-      <div style={{ minWidth: `${minWidth}px`, position: "absolute" }}>
-        {Array.from({ length: rows }, (_, rowIndex) => (
+    <div className={styles.container}>
+      {Array.from({ length: rows }, (_, rowIndex) =>
+        Array.from({ length: limitedColNames.length }, (_, colIndex) => (
           <div
-            key={rowIndex}
+            key={`${limitedColNames[colIndex]}${rowIndex + 1}`}
+            className={styles.cell}
             style={{
-              whiteSpace: "nowrap",
+              top: `${rowIndex * 50}px`,
+              left: `${colIndex * 300}px`,
             }}
           >
-            {Array.from({ length: cols }, (_, colIndex) => (
-              <div
-                key={colIndex}
-                style={{
-                  border: "1px solid black",
-                  width: "300px",
-                  height: "50px",
-                  display: "inline-block",
-                }}
-              >
-                {/* <input
-                  type="text"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    border: "1px solid grey",
-                  }}
-                /> */}
-              </div>
-            ))}
+            {`${limitedColNames[colIndex]}${rowIndex + 1}`}
           </div>
-        ))}
-      </div>
+        ))
+      )}
     </div>
   );
 };
