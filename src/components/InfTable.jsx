@@ -2,17 +2,25 @@ import React from "react";
 
 const InfTable = ({ rows = 100, cols = 50 }) => {
   return (
-    <table style={{ borderCollapse: "collapse" }}>
-      <tbody>
+    <div style={{ overflow: "auto", width: "100%", height: "100vh" }}>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         {Array.from({ length: rows }, (_, rowIndex) => (
-          <tr key={rowIndex}>
+          <div
+            key={rowIndex}
+            style={{
+              whiteSpace: "nowrap", // оставляем только это свойство
+            }}
+          >
             {Array.from({ length: cols }, (_, colIndex) => (
-              <td
+              <div
                 key={colIndex}
                 style={{
                   border: "1px solid black",
-                  width: "400px",
-                  height: "10px",
+                  width: "300px",
+                  height: "50px",
+                  display: "inline-block", // изменяем на inline-block
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <input
@@ -23,12 +31,12 @@ const InfTable = ({ rows = 100, cols = 50 }) => {
                     border: "1px solid grey",
                   }}
                 />
-              </td>
+              </div>
             ))}
-          </tr>
+          </div>
         ))}
-      </tbody>
-    </table>
+      </div>
+    </div>
   );
 };
 
