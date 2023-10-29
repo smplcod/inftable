@@ -33,3 +33,6 @@
 .textarea{
   width:90%;
 }
+.textareaFocused {
+  height: 100vh;
+}
