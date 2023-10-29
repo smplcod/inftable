@@ -3,7 +3,9 @@ import styles from "./InfTable.module.css"; // Import styles
 import StatusBar from "./StatusBar";
 
 const InfTable = ({ rows = 5, cols = 3 }) => {
-  const [tableData, setTableData] = useState({});
+  // const [tableData, setTableData] = useState({});
+  const [tableData, setTableData] = useState([]);
+
   const [textareaFocus, setTextareaFocus] = useState(false);
   const [dragging, setDragging] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -22,16 +24,18 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
   const limitedColNames = colNames.slice(0, cols);
 
   const handleSave = () => {
-    setTableData(
-      Array.from({ length: rows }, (_, rowIndex) =>
-        Array.from({ length: limitedColNames.length }, (_, colIndex) => ({
-          name: `${limitedColNames[colIndex]}${rowIndex + 1}`,
-          top: `${rowIndex * 50}px`,
-          left: `${colIndex * 300}px`,
-          text: "",
-        }))
-      ).flat()
-    );
+    const initialData = Array.from({ length: rows }, (_, rowIndex) =>
+      Array.from({ length: limitedColNames.length }, (_, colIndex) => ({
+        name: `${limitedColNames[colIndex]}${rowIndex + 1}`,
+        top: `${rowIndex * 50}px`,
+        left: `${colIndex * 300}px`,
+        text: "",
+      }))
+    ).flat();
+
+    setTableData((prevData) => {
+      return prevData.length === 0 ? initialData : prevData;
+    });
   };
 
   const handleMouseDown = (e) => {
@@ -50,6 +54,16 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
   };
 
   const handleMouseUp = () => {
+    if (dragging) {
+      const updatedTableData = [...tableData];
+      const cellName = dragging.innerText;
+      const cellData = updatedTableData.find((cell) => cell.name === cellName);
+      if (cellData) {
+        cellData.top = dragging.style.top;
+        cellData.left = dragging.style.left;
+      }
+      setTableData(updatedTableData);
+    }
     setDragging(null);
   };
 
