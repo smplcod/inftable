@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./InfTable.module.css"; // Импортируем стили
+import StatusBar from "./StatusBar";
 
 const InfTable = ({ rows = 30, cols = 5 }) => {
   const colNames = []; // A to ZZ
@@ -15,22 +16,33 @@ const InfTable = ({ rows = 30, cols = 5 }) => {
   const limitedColNames = colNames.slice(0, cols);
 
   return (
-    <div className={styles.container}>
-      {Array.from({ length: rows }, (_, rowIndex) =>
-        Array.from({ length: limitedColNames.length }, (_, colIndex) => (
-          <div
-            key={`${limitedColNames[colIndex]}${rowIndex + 1}`}
-            className={styles.cell}
-            style={{
-              top: `${rowIndex * 50}px`,
-              left: `${colIndex * 300}px`,
-            }}
-          >
-            {`${limitedColNames[colIndex]}${rowIndex + 1}`}
-          </div>
-        ))
-      )}
-    </div>
+    <>
+      <div className={styles.container}>
+        {Array.from({ length: rows }, (_, rowIndex) =>
+          Array.from({ length: limitedColNames.length }, (_, colIndex) => (
+            <div
+              key={`${limitedColNames[colIndex]}${rowIndex + 1}`}
+              className={styles.cell}
+              style={{
+                top: `${rowIndex * 50}px`,
+                left: `${colIndex * 300}px`,
+              }}
+            >
+              {`${limitedColNames[colIndex]}${rowIndex + 1}`}
+            </div>
+          ))
+        )}
+      </div>
+      <StatusBar
+        cmdctrl={true}
+        optalt={true}
+        shift={false}
+        saved={true}
+        changed={true}
+        memory={false}
+        size={true}
+      />
+    </>
   );
 };
 
