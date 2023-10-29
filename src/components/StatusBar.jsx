@@ -12,27 +12,13 @@ const StatusBar = ({
 }) => {
   return (
     <div className={styles.statusbar}>
-      <div className={cmdctrl ? styles.active : ""}>
-        Cmd/Ctrl: {cmdctrl ? "On" : "Off"}
-      </div>
-      <div className={optalt ? styles.active : ""}>
-        Opt/Alt: {optalt ? "On" : "Off"}
-      </div>
-      <div className={shift ? styles.active : ""}>
-        Shift: {shift ? "On" : "Off"}
-      </div>
-      <div className={saved ? styles.active : ""}>
-        Saved: {saved ? "Yes" : "No"}
-      </div>
-      <div className={changed ? styles.active : ""}>
-        Changed: {changed ? "Yes" : "No"}
-      </div>
-      <div className={memory ? styles.active : ""}>
-        Memory: {memory ? "Used" : "Free"}
-      </div>
-      <div className={size ? styles.active : ""}>
-        Size: {size ? "Big" : "Small"}
-      </div>
+      <div className={cmdctrl ? "" : styles.hidden}>Cmd/Ctrl</div>
+      <div className={optalt ? "" : styles.hidden}>Opt/Alt</div>
+      <div className={shift ? "" : styles.hidden}>Shift</div>
+      <div className={saved ? "" : styles.hidden}>Saved</div>
+      <div className={changed ? "" : styles.hidden}>Changed</div>
+      <div className={memory ? "" : styles.hidden}>Memory</div>
+      <div className={size ? "" : styles.hidden}>Size</div>
       <div></div>
     </div>
   );

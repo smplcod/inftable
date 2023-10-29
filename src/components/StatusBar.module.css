@@ -7,6 +7,6 @@
   border-top: 1px solid #ccc;
 }
 
-.active {
-  color: green;
+.hidden {
+  visibility: hidden;
 }
