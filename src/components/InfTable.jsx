@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./InfTable.module.css"; // Импортируем стили
 import StatusBar from "./StatusBar";
 
-const InfTable = ({ rows = 30, cols = 5 }) => {
+const InfTable = ({ rows = 5, cols = 2 }) => {
   const colNames = []; // A to ZZ
   for (let i = 65; i <= 90; i++) {
     colNames.push(String.fromCharCode(i));

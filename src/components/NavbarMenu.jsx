@@ -4,10 +4,11 @@ import { NavLink } from "react-router-dom";
 
 const menuItems = [
   { name: "MVP", url: "/mvp" },
+  { name: "Lab🧪", url: "/lab" },
   { name: "Desktop", url: "/desktop" },
   { name: "File", url: "/file" },
   { name: "Edit", url: "/edit" },
-  { name: "View", url: "/view" },
+  // { name: "View", url: "/view" },
   // { name: "Insert", url: "/insert" },
   // { name: "Format", url: "/format" },
   // { name: "Plugins", url: "/plugins" },

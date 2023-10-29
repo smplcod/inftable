@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./StatusBar.module.css";
 
 const StatusBar = ({
-  memory = false,
   size = false,
+  memory = false,
   saved = false,
   changed = false,
 }) => {
@@ -54,8 +54,8 @@ const StatusBar = ({
       <div className={cmdctrl ? "" : styles.hidden}>{cmdOrCtrl}</div>
       <div className={optalt ? "" : styles.hidden}>{optOrAlt}</div>
       <div className={shift ? "" : styles.hidden}>Shift</div>
-      <div className={memory ? "" : styles.hidden}>Memory</div>
       <div className={size ? "" : styles.hidden}>Size</div>
+      <div className={memory ? "" : styles.hidden}>Memory</div>
       <div className={saved ? "" : styles.hidden}>Saved</div>
       <div className={changed ? "" : styles.hidden}>Changed</div>
       <div></div>
