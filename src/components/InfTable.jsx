@@ -97,7 +97,7 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
           }`}
           rows="4"
           cols="50"
-          defaultValue={JSON.stringify(tableData, null, 2)}
+          value={JSON.stringify(tableData, null, 2)}
           onFocus={handleFocus}
           onBlur={handleBlur}
         ></textarea>
