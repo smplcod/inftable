@@ -2,7 +2,7 @@
 	position: relative;
 	width: 231px;
 	height: 170px;
-	perspective: 500px; /* Добавим перспективу для 3D-эффекта */
+	perspective: 1000px; /* Добавим перспективу для 3D-эффекта */
 }
 
 .frontTable, .backTable {
@@ -11,7 +11,7 @@
 	height: 150px;
 	border-collapse: collapse;
 	transition: transform 0.5s;
-	transform-origin: top right; /* Центр вращения будет установлен у правого верхнего угла */
+	transform-origin: right top; /* Центр вращения устанавливаем у правого верхнего угла */
 }
 
 .frontTable {
@@ -20,14 +20,14 @@
 	opacity: 0.5;
 	background-color: rgba(255,255,255,0.5);
 	z-index: 2;
-	transform: rotateY(-45deg); /* Вращаем переднюю таблицу вокруг оси Y */
+	transform: rotateY(-30deg); /* Вращаем переднюю таблицу вокруг оси Y */
 }
 
 .backTable {
 	right: 0;
 	top: 0;
 	z-index: 1;
-	transform: translateY(30px) rotateY(-45deg); /* Сдвигаем заднюю таблицу вниз и вращаем вокруг оси Y */
+	transform: rotateY(-30deg); /* Вращаем заднюю таблицу вокруг оси Y */
 }
 
 .frontTable th, .frontTable td, .backTable th, .backTable td {
