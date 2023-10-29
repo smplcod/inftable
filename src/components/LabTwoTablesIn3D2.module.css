@@ -1,0 +1,54 @@
+.tablesWrapper {
+	position: relative;
+	width: 231px;
+	height: 170px;
+	perspective: 1000px;
+}
+
+.frontTable, .middleFrontTable, .middleBackTable, .backTable {
+	position: absolute;
+	width: 200px;
+	height: 150px;
+	border-collapse: collapse;
+	transition: transform 0.5s;
+	transform-origin: top right;
+}
+
+.frontTable {
+	left: 0;
+	bottom: 0;
+	opacity: 0.5;
+	background-color: rgba(255,255,255,0.5);
+	z-index: 4;
+	transform: rotateY(-45deg);
+}
+
+.middleFrontTable {
+	left: 15px;
+	bottom: 15px;
+	z-index: 3;
+	transform: rotateY(-45deg);
+}
+
+.middleBackTable {
+	right: 15px;
+	top: 15px;
+	z-index: 2;
+	transform: rotateY(-45deg);
+}
+
+.backTable {
+	right: 0;
+	top: 0;
+	z-index: 1;
+	transform: rotateY(-45deg);
+}
+
+.frontTable th, .frontTable td, 
+.middleFrontTable th, .middleFrontTable td, 
+.middleBackTable th, .middleBackTable td, 
+.backTable th, .backTable td {
+	border: 1px solid black;
+	padding: 10px;
+	text-align: center;
+}
