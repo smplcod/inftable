@@ -12,7 +12,6 @@
 	border-collapse: collapse;
 	transition: transform 0.5s;
 	transform-origin: top right; /* Центр вращения будет установлен у правого верхнего угла */
-	transform-style: preserve-3d; /* Сохраняем 3D-стили для дочерних элементов */
 }
 
 .frontTable {
@@ -28,7 +27,7 @@
 	right: 0;
 	top: 0;
 	z-index: 1;
-	transform: rotateY(-45deg); /* Вращаем заднюю таблицу вокруг оси Y */
+	transform: translateY(30px) rotateY(-45deg); /* Сдвигаем заднюю таблицу вниз и вращаем вокруг оси Y */
 }
 
 .frontTable th, .frontTable td, .backTable th, .backTable td {
