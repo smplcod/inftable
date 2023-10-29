@@ -11,7 +11,7 @@
 	height: 150px;
 	border-collapse: collapse;
 	transition: transform 0.5s;
-	transform-origin: right top; /* Центр вращения устанавливаем у правого верхнего угла */
+	transform-origin: top right; /* Центр вращения установлен у правого верхнего угла */
 }
 
 .frontTable {
@@ -20,14 +20,14 @@
 	opacity: 0.5;
 	background-color: rgba(255,255,255,0.5);
 	z-index: 2;
-	transform: rotateY(-30deg); /* Вращаем переднюю таблицу вокруг оси Y */
+	transform: rotateY(-45deg); /* Вращаем переднюю таблицу вокруг вертикальной оси */
 }
 
 .backTable {
 	right: 0;
 	top: 0;
 	z-index: 1;
-	transform: rotateY(-30deg); /* Вращаем заднюю таблицу вокруг оси Y */
+	transform: rotateY(-45deg); /* Вращаем заднюю таблицу таким же образом */
 }
 
 .frontTable th, .frontTable td, .backTable th, .backTable td {
