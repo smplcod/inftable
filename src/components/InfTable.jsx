@@ -5,6 +5,9 @@ import StatusBar from "./StatusBar";
 const InfTable = ({ rows = 5, cols = 3 }) => {
   const [tableData, setTableData] = useState({});
   const [textareaFocus, setTextareaFocus] = useState(false);
+  const [dragging, setDragging] = useState(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
   const colNames = []; // A to ZZ
 
   for (let i = 65; i <= 90; i++) {
@@ -31,6 +34,25 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
     );
   };
 
+  const handleMouseDown = (e) => {
+    setDragging(e.target);
+    setPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseMove = (e) => {
+    if (dragging) {
+      const dx = e.clientX - position.x;
+      const dy = e.clientY - position.y;
+      dragging.style.left = `${parseInt(dragging.style.left) + dx}px`;
+      dragging.style.top = `${parseInt(dragging.style.top) + dy}px`;
+      setPosition({ x: e.clientX, y: e.clientY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setDragging(null);
+  };
+
   const handleFocus = () => {
     setTextareaFocus(true);
   };
@@ -41,16 +63,23 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div
+        className={styles.container}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+      >
         {Array.from({ length: rows }, (_, rowIndex) =>
           Array.from({ length: limitedColNames.length }, (_, colIndex) => (
             <div
               key={`${limitedColNames[colIndex]}${rowIndex + 1}`}
-              className={styles.cell}
+              className={`${styles.cell} ${
+                dragging ? styles.cellFocused : styles.cellReleased
+              }`}
               style={{
                 top: `${rowIndex * 50}px`,
                 left: `${colIndex * 300}px`,
               }}
+              onMouseDown={handleMouseDown}
             >
               {`${limitedColNames[colIndex]}${rowIndex + 1}`}
             </div>
@@ -68,8 +97,7 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
           }`}
           rows="4"
           cols="50"
-          readOnly
-          value={JSON.stringify(tableData, null, 2)}
+          defaultValue={JSON.stringify(tableData, null, 2)}
           onFocus={handleFocus}
           onBlur={handleBlur}
         ></textarea>
