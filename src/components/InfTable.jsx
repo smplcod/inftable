@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import styles from "./InfTable.module.css"; // Import styles
+import styles from "./InfTable.module.css";
 import StatusBar from "./StatusBar";
 
 const InfTable = ({ rows = 5, cols = 3 }) => {
-  // const [tableData, setTableData] = useState({});
   const [tableData, setTableData] = useState([]);
-
   const [textareaFocus, setTextareaFocus] = useState(false);
   const [dragging, setDragging] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [activeCell, setActiveCell] = useState(null);
 
-  const colNames = []; // A to ZZ
-
+  const colNames = [];
   for (let i = 65; i <= 90; i++) {
     colNames.push(String.fromCharCode(i));
   }
@@ -20,7 +18,6 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
       colNames.push(String.fromCharCode(i) + String.fromCharCode(j));
     }
   }
-
   const limitedColNames = colNames.slice(0, cols);
 
   const handleSave = () => {
@@ -32,14 +29,12 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
         text: "",
       }))
     ).flat();
-
-    setTableData((prevData) => {
-      return prevData.length === 0 ? initialData : prevData;
-    });
+    setTableData(initialData);
   };
 
   const handleMouseDown = (e) => {
     setDragging(e.target);
+    setActiveCell(e.target.innerText);
     setPosition({ x: e.clientX, y: e.clientY });
   };
 
@@ -65,6 +60,7 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
       setTableData(updatedTableData);
     }
     setDragging(null);
+    setActiveCell(null);
   };
 
   const handleFocus = () => {
@@ -87,7 +83,11 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
             <div
               key={`${limitedColNames[colIndex]}${rowIndex + 1}`}
               className={`${styles.cell} ${
-                dragging ? styles.cellFocused : styles.cellReleased
+                activeCell === `${limitedColNames[colIndex]}${rowIndex + 1}`
+                  ? dragging
+                    ? styles.cellFocused
+                    : styles.cellReleased
+                  : ""
               }`}
               style={{
                 top: `${rowIndex * 50}px`,
