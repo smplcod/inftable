@@ -37,7 +37,7 @@ const InfTable = ({ rows = 30, cols = 5 }) => {
         cmdctrl={true}
         optalt={true}
         shift={false}
-        memory={false}
+        memory={true}
         size={true}
         saved={true}
         changed={true}
