@@ -3,11 +3,11 @@ import styles from "./InfTable.module.css";
 import StatusBar from "./StatusBar";
 
 const InfTable = ({ rows = 5, cols = 3 }) => {
-  const [tableData, setTableData] = useState([]); // Состояние для хранения данных таблицы, изначально пустой массив
-  const [textareaFocus, setTextareaFocus] = useState(false); // Состояние фокуса для textarea, изначально false
-  const [dragging, setDragging] = useState(null); // Состояние для хранения перетаскиваемой ячейки, изначально null
-  const [position, setPosition] = useState({ x: 0, y: 0 }); // Состояние для хранения текущих координат мыши, изначально (0, 0)
-  const [activeCell, setActiveCell] = useState(null); // Состояние для хранения активной ячейки, изначально null
+  const [tableData, setTableData] = useState([]);
+  const [textareaFocus, setTextareaFocus] = useState(false);
+  const [dragging, setDragging] = useState(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [activeCell, setActiveCell] = useState(null);
 
   const colNames = [];
   for (let i = 65; i <= 90; i++) {
@@ -34,7 +34,7 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
 
   const handleMouseDown = (e) => {
     setDragging(e.target);
-    setActiveCell(e.target.innerText);
+    setActiveCell(e.target.getAttribute("data-cell-name"));
     setPosition({ x: e.clientX, y: e.clientY });
   };
 
@@ -51,7 +51,7 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
   const handleMouseUp = () => {
     if (dragging) {
       const updatedTableData = [...tableData];
-      const cellName = dragging.innerText;
+      const cellName = dragging.getAttribute("data-cell-name");
       const cellData = updatedTableData.find((cell) => cell.name === cellName);
       if (cellData) {
         cellData.top = dragging.style.top;
@@ -81,6 +81,7 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
         {Array.from({ length: rows }, (_, rowIndex) =>
           Array.from({ length: limitedColNames.length }, (_, colIndex) => (
             <div
+              data-cell-name={`${limitedColNames[colIndex]}${rowIndex + 1}`}
               key={`${limitedColNames[colIndex]}${rowIndex + 1}`}
               className={`${styles.cell} ${
                 activeCell === `${limitedColNames[colIndex]}${rowIndex + 1}`
