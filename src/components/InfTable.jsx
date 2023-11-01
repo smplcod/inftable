@@ -1,35 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./InfTable.module.css";
 import StatusBar from "./StatusBar";
 
 const InfTable = ({ rows = 5, cols = 3 }) => {
   const [tableData, setTableData] = useState([]);
-  const [textareaFocus, setTextareaFocus] = useState(false);
   const [dragging, setDragging] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [activeCell, setActiveCell] = useState(null);
 
-  const colNames = [];
-  for (let i = 65; i <= 90; i++) {
-    colNames.push(String.fromCharCode(i));
-  }
-  for (let i = 65; i <= 90; i++) {
-    for (let j = 65; j <= 90; j++) {
-      colNames.push(String.fromCharCode(i) + String.fromCharCode(j));
-    }
-  }
-  const limitedColNames = colNames.slice(0, cols);
-
-  const handleSave = () => {
+  useEffect(() => {
     const initialData = Array.from({ length: rows }, (_, rowIndex) =>
-      Array.from({ length: limitedColNames.length }, (_, colIndex) => ({
-        name: `${limitedColNames[colIndex]}${rowIndex + 1}`,
+      Array.from({ length: cols }, (_, colIndex) => ({
+        name: `${String.fromCharCode(65 + colIndex)}${rowIndex + 1}`,
         top: `${rowIndex * 50}px`,
         left: `${colIndex * 300}px`,
         text: "",
       }))
     ).flat();
     setTableData(initialData);
+  }, [rows, cols]);
+
+  const handleSave = () => {
+    console.log("Saved data:", tableData);
   };
 
   const handleMouseDown = (e) => {
@@ -63,14 +55,6 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
     setActiveCell(null);
   };
 
-  const handleFocus = () => {
-    setTextareaFocus(true);
-  };
-
-  const handleBlur = () => {
-    setTextareaFocus(false);
-  };
-
   return (
     <>
       <div
@@ -78,44 +62,25 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
-        {Array.from({ length: rows }, (_, rowIndex) =>
-          Array.from({ length: limitedColNames.length }, (_, colIndex) => (
-            <div
-              data-cell-name={`${limitedColNames[colIndex]}${rowIndex + 1}`}
-              key={`${limitedColNames[colIndex]}${rowIndex + 1}`}
-              className={`${styles.cell} ${
-                activeCell === `${limitedColNames[colIndex]}${rowIndex + 1}`
-                  ? dragging
-                    ? styles.cellFocused
-                    : styles.cellReleased
-                  : ""
-              }`}
-              style={{
-                top: `${rowIndex * 50}px`,
-                left: `${colIndex * 300}px`,
-              }}
-              onMouseDown={handleMouseDown}
-            >
-              {`${limitedColNames[colIndex]}${rowIndex + 1}`}
-            </div>
-          ))
-        )}
+        {tableData.map((cell, index) => (
+          <div
+            data-cell-name={cell.name}
+            key={index}
+            className={styles.cell}
+            style={{
+              top: cell.top,
+              left: cell.left,
+            }}
+            onMouseDown={handleMouseDown}
+          >
+            {cell.name}
+          </div>
+        ))}
       </div>
       <div className={styles.controlPanel}>
         <div className={styles.buttons}>
           <button onClick={handleSave}>Save</button>
-          <button>Load</button>
         </div>
-        <textarea
-          className={`${styles.textarea} ${
-            textareaFocus ? styles.textareaFocused : ""
-          }`}
-          rows="4"
-          cols="50"
-          value={JSON.stringify(tableData, null, 2)}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        ></textarea>
       </div>
       <StatusBar
         cmdctrl={true}

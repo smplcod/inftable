@@ -19,6 +19,15 @@
   cursor: grab;
 }
 
+/* Добавленные стили */
+.cellStyle {
+  --top: 0px;
+  --left: 0px;
+  top: var(--top);
+  left: var(--left);
+}
+/* До этого момента */
+
 .controlPanel {
   display: flex;
   justify-content: space-between;
