@@ -52,7 +52,6 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
       setTableData(updatedTableData);
     }
     setDragging(null);
-    setActiveCell(null);
   };
 
   return (
@@ -66,7 +65,9 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
           <div
             data-cell-name={cell.name}
             key={index}
-            className={styles.cell}
+            className={`${styles.cell} ${
+              activeCell === cell.name ? styles.cellFocused : ""
+            }`}
             style={{
               top: cell.top,
               left: cell.left,
