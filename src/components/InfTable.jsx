@@ -56,6 +56,12 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
           setActiveCell(null);
         }
       }
+    } else if (e.key === "Escape") {
+      if (editingCell) {
+        setEditingText("");
+        setEditingCell(null);
+        setActiveCell(editingCell);
+      }
     }
   };
 
@@ -95,6 +101,31 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
     setDragging(null);
   };
 
+  const handleBlur = () => {
+    if (editingCell) {
+      const updatedTableData = [...tableData];
+      const cellData = updatedTableData.find(
+        (cell) => cell.name === editingCell
+      );
+      if (cellData) {
+        cellData.text = editingText;
+      }
+      setTableData(updatedTableData);
+      setEditingCell(null);
+      setActiveCell(editingCell);
+    }
+  };
+
+  const handleDoubleClick = (e) => {
+    const cellName = e.target.getAttribute("data-cell-name");
+    const cellData = tableData.find((cell) => cell.name === cellName);
+    if (cellData) {
+      setEditingText(cellData.text);
+      setEditingCell(cellData.name);
+      setActiveCell(null);
+    }
+  };
+
   return (
     <>
       <div
@@ -116,12 +147,14 @@ const InfTable = ({ rows = 5, cols = 3 }) => {
               left: cell.left,
             }}
             onMouseDown={handleMouseDown}
+            onDoubleClick={handleDoubleClick}
           >
             {editingCell === cell.name ? (
               <textarea
                 ref={textareaRef}
                 value={editingText}
                 onChange={(e) => setEditingText(e.target.value)}
+                onBlur={handleBlur}
               ></textarea>
             ) : (
               cell.text
